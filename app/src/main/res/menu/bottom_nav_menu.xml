@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigation_course"
+        android:title="@string/course"
+        android:icon="@drawable/ic_course"/>
+
+    <item android:id="@+id/navigation_converter"
+        android:title="@string/converter"
+        android:icon="@drawable/ic_converter"/>
+</menu>
