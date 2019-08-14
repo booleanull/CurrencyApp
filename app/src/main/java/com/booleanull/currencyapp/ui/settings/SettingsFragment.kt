@@ -9,16 +9,28 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceFragmentCompat
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
+import com.booleanull.currencyapp.ui.MainActivity
 import com.booleanull.currencyapp.ui.base.BackButtonListener
 import kotlinx.android.synthetic.main.fragment_settings.*
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 class SettingsFragment : Fragment(), BackButtonListener {
+
+    @Inject
+    lateinit var cicerone: Cicerone<Router>
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).component?.inject(this)
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
@@ -36,7 +48,7 @@ class SettingsFragment : Fragment(), BackButtonListener {
     }
 
     override fun onBackPressed() {
-        MyApplication.cicerone.router.exit()
+        cicerone.router.exit()
     }
 
     class SettingsPrefFragment : PreferenceFragmentCompat() {

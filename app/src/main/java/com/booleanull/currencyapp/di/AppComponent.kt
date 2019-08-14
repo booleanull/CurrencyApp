@@ -1,8 +1,8 @@
 package com.booleanull.currencyapp.di
 
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [])
-interface AppComponent {
-
-}
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent

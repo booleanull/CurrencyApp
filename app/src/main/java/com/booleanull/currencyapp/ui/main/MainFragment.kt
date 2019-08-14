@@ -7,13 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
+import com.booleanull.currencyapp.ui.MainActivity
 import com.booleanull.currencyapp.ui.Screens
 import com.booleanull.currencyapp.ui.base.BackButtonListener
 import com.booleanull.currencyapp.ui.main.converter.ConverterFragment
 import com.booleanull.currencyapp.ui.main.course.CourseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 class MainFragment : Fragment(), BackButtonListener {
+
+    @Inject
+    lateinit var cicerone: Cicerone<Router>
+
+    @Inject
+    lateinit var navigator: Navigator
 
     private var selectedFragment: Fragment? = null
 
@@ -22,6 +33,7 @@ class MainFragment : Fragment(), BackButtonListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).component?.inject(this)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -30,7 +42,7 @@ class MainFragment : Fragment(), BackButtonListener {
 
         toolbar.setOnMenuItemClickListener {
             when(it.itemId) {
-                R.id.settings -> MyApplication.cicerone.router.navigateTo(Screens.SettingsScreen())
+                R.id.settings -> cicerone.router.navigateTo(Screens.SettingsScreen())
             }
             true
         }
@@ -94,7 +106,7 @@ class MainFragment : Fragment(), BackButtonListener {
         if(fragment != null) {
             (fragment as BackButtonListener).onBackPressed()
         } else {
-            MyApplication.cicerone.router.exit()
+            cicerone.router.exit()
         }
     }
 }

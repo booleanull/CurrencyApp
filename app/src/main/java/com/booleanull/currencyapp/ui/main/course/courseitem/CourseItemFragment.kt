@@ -8,19 +8,27 @@ import androidx.fragment.app.Fragment
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
 import com.booleanull.currencyapp.ui.base.BackButtonListener
+import com.booleanull.currencyapp.ui.main.course.CourseFragment
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.commands.Back
+import javax.inject.Inject
 
 class CourseItemFragment : Fragment(), BackButtonListener {
+
+    @Inject
+    lateinit var cicerone: Cicerone<Router>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (parentFragment as CourseFragment).component.inject(this)
         return inflater.inflate(R.layout.fragment_course_item, container, false)
     }
 
     override fun onBackPressed() {
-        MyApplication.localCicerone.router.exit()
+        cicerone.router.exit()
     }
 }
