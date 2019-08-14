@@ -3,7 +3,6 @@ package com.booleanull.currencyapp
 import android.app.Application
 import com.booleanull.currencyapp.di.AppComponent
 import com.booleanull.currencyapp.di.DaggerAppComponent
-import com.booleanull.currencyapp.ui.Screens
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 

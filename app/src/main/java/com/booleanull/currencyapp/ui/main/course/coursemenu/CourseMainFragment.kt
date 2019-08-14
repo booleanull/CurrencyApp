@@ -1,4 +1,4 @@
-package com.booleanull.currencyapp.ui.course.coursemenu
+package com.booleanull.currencyapp.ui.main.course.coursemenu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
 import com.booleanull.currencyapp.ui.Screens
+import com.booleanull.currencyapp.ui.base.BackButtonListener
 import kotlinx.android.synthetic.main.fragment_course_main.*
 
-class CourseMainFragment : Fragment() {
+class CourseMainFragment : Fragment(), BackButtonListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +26,9 @@ class CourseMainFragment : Fragment() {
         button.setOnClickListener {
             MyApplication.localCicerone.router.navigateTo(Screens.CourseItemScreen())
         }
+    }
+
+    override fun onBackPressed() {
+        MyApplication.localCicerone.router.exit()
     }
 }

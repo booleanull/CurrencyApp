@@ -1,5 +1,6 @@
 package com.booleanull.currencyapp.di
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -9,9 +10,9 @@ import javax.inject.Singleton
 @Module
 class LocalNavigationModule {
 
-    @Singleton
     @Provides
-    internal fun provideCourseLocalNavigation(): Cicerone<Router> {
+    @Singleton
+    internal fun provideLocalNavigation(): Cicerone<Router> {
         return Cicerone.create()
     }
 }
