@@ -2,21 +2,16 @@ package com.booleanull.currencyapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
+import com.booleanull.currencyapp.ui.converter.ConverterFragment
+import com.booleanull.currencyapp.ui.course.CourseFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
 
 class MainActivity : AppCompatActivity() {
 
-    private val navigator = object : SupportAppNavigator(this, R.id.nav_host_fragment) {
-
-        override fun applyCommand(command: Command?) {
-            super.applyCommand(command)
-            supportFragmentManager.executePendingTransactions()
-        }
-    }
+    private var selectedFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,28 +19,52 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener { menu ->
             when (menu.itemId) {
-                R.id.navigation_course -> MyApplication.cicerone.router.replaceScreen(Screens.CourseScreen())
-                R.id.navigation_converter -> MyApplication.cicerone.router.replaceScreen(Screens.ConverterScreen())
+                R.id.navigation_course -> selectNavigationItem(CourseFragment.TAG, CourseFragment())
+                R.id.navigation_converter -> selectNavigationItem(ConverterFragment.TAG, ConverterFragment())
             }
 
             return@setOnNavigationItemSelectedListener true
         }
-
-        if (savedInstanceState == null)
-            MyApplication.cicerone.router.replaceScreen(Screens.CourseScreen())
+        navigation.selectedItemId = R.id.navigation_course
     }
 
-    override fun onResume() {
-        super.onResume()
-        MyApplication.cicerone.navigatorHolder.setNavigator(navigator)
-    }
+    private fun selectNavigationItem(tab: String, fragment: Fragment) {
+        val fm = supportFragmentManager
+        var currentFragment: Fragment? = null
+        val fragments = fm.fragments
+        if (fragments != null) {
+            for (f in fragments) {
+                if (f.isVisible) {
+                    currentFragment = f
+                    break
+                }
+            }
+        }
+        selectedFragment = fm.findFragmentByTag(tab)
 
-    override fun onPause() {
-        MyApplication.cicerone.navigatorHolder.removeNavigator()
-        super.onPause()
+        if (currentFragment != null && selectedFragment != null && currentFragment === selectedFragment) return
+
+        val transaction = fm.beginTransaction()
+        if (selectedFragment == null) {
+            transaction.add(R.id.nav_host_fragment, fragment, tab)
+            selectedFragment = fragment
+        }
+
+        if (currentFragment != null) {
+            transaction.hide(currentFragment)
+        }
+
+        if (selectedFragment != null) {
+            transaction.show(selectedFragment!!)
+        }
+        transaction.commitNow()
     }
 
     override fun onBackPressed() {
-        MyApplication.cicerone.router.exit()
+        if(selectedFragment?.tag == CourseFragment.TAG) {
+            MyApplication.localCicerone.router.exit()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

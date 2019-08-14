@@ -16,16 +16,4 @@ class CourseItemFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_course_item, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-    }
-
-    companion object {
-
-        fun getInstanse(): CourseItemFragment {
-            val fragment = CourseItemFragment()
-            return fragment
-        }
-    }
 }

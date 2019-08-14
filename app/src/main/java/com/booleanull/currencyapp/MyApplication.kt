@@ -3,6 +3,7 @@ package com.booleanull.currencyapp
 import android.app.Application
 import com.booleanull.currencyapp.di.AppComponent
 import com.booleanull.currencyapp.di.DaggerAppComponent
+import com.booleanull.currencyapp.ui.Screens
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
@@ -14,6 +15,9 @@ class MyApplication : Application() {
 
         lateinit var cicerone: Cicerone<Router>
             private set
+
+        lateinit var localCicerone: Cicerone<Router>
+            private set
     }
 
     override fun onCreate() {
@@ -23,5 +27,6 @@ class MyApplication : Application() {
             .build()
 
         cicerone = Cicerone.create()
+        localCicerone = Cicerone.create()
     }
 }

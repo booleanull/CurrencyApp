@@ -9,23 +9,15 @@ import com.booleanull.currencyapp.R
 
 class ConverterFragment : Fragment() {
 
+    companion object {
+        val TAG = "CONVERTER_FRAGMENT"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_converter, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-    }
-
-    companion object {
-
-        fun getInstanse(): ConverterFragment {
-            val fragment = ConverterFragment()
-            return fragment
-        }
     }
 }
