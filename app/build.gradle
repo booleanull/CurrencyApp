@@ -36,8 +36,11 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0-rc01'
     kapt 'com.google.dagger:dagger-compiler:2.21'
 
-    //CICERONE
+    // CICERONE
     implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+
+    // RETROFIT
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.2'

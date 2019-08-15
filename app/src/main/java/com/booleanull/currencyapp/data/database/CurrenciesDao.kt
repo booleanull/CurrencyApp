@@ -9,6 +9,9 @@ interface CurrenciesDao {
     @Query("SELECT * FROM currenciesentity ORDER BY id")
     suspend fun all(): List<CurrenciesEntity>
 
+    @Query("SELECT * FROM currenciesentity WHERE date = :date")
+    suspend fun getCurrenciesByDate(date: String): List<CurrenciesEntity>
+
     @Query("SELECT * FROM currenciesentity WHERE date = :date AND base = :base")
     suspend fun getCurrenciesByBaseAndDate(base:String, date: String): CurrenciesEntity
 
