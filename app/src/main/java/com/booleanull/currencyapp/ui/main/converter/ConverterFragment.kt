@@ -70,8 +70,10 @@ class ConverterFragment : Fragment(), BackButtonListener {
             GlobalScope.launch(Dispatchers.Main) {
                 val jsonObject = networkManager.getLatestCurrencies("RUB").await().asJsonObject
                 val currenciesEntity = CurrenciesEntity().apply {
-                    baseAndDate = jsonObject.get("base").asString + jsonObject.get("date").asString
+                    base = jsonObject.get("base").asString
+                    date = jsonObject.get("date").asString
                     rates = jsonObject.get("rates").toString()
+                    generatePrimaryKey()
                 }
                 databaseManager.insertCurrencies(currenciesEntity)
             }

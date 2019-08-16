@@ -8,10 +8,12 @@ import com.booleanull.currencyapp.data.models.base.EntityModel
 class CurrenciesEntity : EntityModel {
 
     @PrimaryKey
-    var baseAndDate: String = ""
-    var rates: String = ""
+    var baseAndDate = ""
+    var base = ""
+    var date = ""
+    var rates = ""
 
-    override fun toString(): String {
-        return baseAndDate + rates
+    fun generatePrimaryKey() {
+        baseAndDate = base + date
     }
 }

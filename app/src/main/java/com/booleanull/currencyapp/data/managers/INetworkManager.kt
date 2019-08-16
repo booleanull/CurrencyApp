@@ -1,6 +1,5 @@
 package com.booleanull.currencyapp.data.managers
 
-import com.booleanull.currencyapp.data.models.CurrenciesEntity
 import com.google.gson.JsonElement
 import kotlinx.coroutines.Deferred
 

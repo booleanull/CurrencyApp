@@ -3,6 +3,7 @@ package com.booleanull.currencyapp.data.managers
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.data.database.CurrenciesDatabase
 import com.booleanull.currencyapp.data.models.CurrenciesEntity
+import javax.inject.Inject
 
 class DatabaseManager : IDatabaseManager {
 
@@ -12,8 +13,12 @@ class DatabaseManager : IDatabaseManager {
         return currenciesDatabase.provideCurrenciesDao().all()
     }
 
-    override suspend fun getCurrenciesByBaseAndDate(baseAndDate: String): CurrenciesEntity {
-        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByBaseAndDate(baseAndDate)
+    override suspend fun getCurrenciesByDate(date: String): List<CurrenciesEntity> {
+        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByDate(date)
+    }
+
+    override suspend fun getCurrenciesByBaseAndDate(base: String, date: String): CurrenciesEntity {
+        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByBaseAndDate(base, date)
     }
 
     override suspend fun insertCurrencies(currenciesEntity: CurrenciesEntity) {
