@@ -1,8 +1,7 @@
 package com.booleanull.currencyapp.utils
 
-import android.content.Context
-import android.widget.Toast
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-fun Context.showToast(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-}
+inline fun <reified T> String.fromJson(parser: Gson): T =
+    parser.fromJson<T>(this, object : TypeToken<T>() {}.type)

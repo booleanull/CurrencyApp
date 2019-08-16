@@ -12,12 +12,8 @@ class DatabaseManager : IDatabaseManager {
         return currenciesDatabase.provideCurrenciesDao().all()
     }
 
-    override suspend fun getCurrenciesByDate(date: String): List<CurrenciesEntity> {
-        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByDate(date)
-    }
-
-    override suspend fun getCurrenciesByBaseAndDate(base: String, date: String): CurrenciesEntity {
-        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByBaseAndDate(base, date)
+    override suspend fun getCurrenciesByBaseAndDate(baseAndDate: String): CurrenciesEntity {
+        return currenciesDatabase.provideCurrenciesDao().getCurrenciesByBaseAndDate(baseAndDate)
     }
 
     override suspend fun insertCurrencies(currenciesEntity: CurrenciesEntity) {

@@ -2,6 +2,7 @@ package com.booleanull.currencyapp.di
 
 import com.booleanull.currencyapp.data.network.ApiService
 import com.booleanull.currencyapp.utils.Constants.BASE_URL
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -12,6 +13,12 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+
+    @Singleton
+    @Provides
+    fun getGson(): Gson {
+        return GsonBuilder().setLenient().create()
+    }
 
     @Singleton
     @Provides
@@ -29,8 +36,8 @@ class NetworkModule {
     @Provides
     fun getRetrofit(gsonConverterFactory: GsonConverterFactory, coroutineCallAdapterFactory: CoroutineCallAdapterFactory): ApiService {
         val retrofit = Retrofit.Builder()
-            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .baseUrl(BASE_URL)
             .build()
         return retrofit.create(ApiService::class.java)

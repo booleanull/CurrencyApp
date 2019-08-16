@@ -7,6 +7,7 @@ import com.booleanull.currencyapp.data.managers.IDatabaseManager
 import com.booleanull.currencyapp.data.managers.INetworkManager
 import com.booleanull.currencyapp.data.network.ApiService
 import com.booleanull.currencyapp.ui.MainActivity
+import com.google.gson.Gson
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,6 +22,8 @@ interface AppComponent {
     fun databaseManager(): IDatabaseManager
 
     fun apiService(): ApiService
+
+    fun gson(): Gson
 
     fun networkManager(): INetworkManager
 }

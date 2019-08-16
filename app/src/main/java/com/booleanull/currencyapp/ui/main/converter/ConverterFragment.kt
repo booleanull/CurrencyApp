@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.R
 import com.booleanull.currencyapp.data.managers.IDatabaseManager
 import com.booleanull.currencyapp.data.managers.INetworkManager
 import com.booleanull.currencyapp.data.models.CurrenciesEntity
 import com.booleanull.currencyapp.ui.MainActivity
 import com.booleanull.currencyapp.ui.base.BackButtonListener
-import com.booleanull.currencyapp.utils.showToast
+import com.booleanull.currencyapp.utils.fromJson
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,6 +22,7 @@ import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
+
 
 class ConverterFragment : Fragment(), BackButtonListener {
 
@@ -34,6 +35,9 @@ class ConverterFragment : Fragment(), BackButtonListener {
 
     @Inject
     lateinit var navigator: Navigator
+
+    @Inject
+    lateinit var gson: Gson
 
     @Inject
     lateinit var databaseManager: IDatabaseManager
@@ -55,14 +59,21 @@ class ConverterFragment : Fragment(), BackButtonListener {
 
         button1.setOnClickListener {
             GlobalScope.launch(Dispatchers.Main) {
-                Toast.makeText(context, databaseManager.getAllCurriencies().toString(), Toast.LENGTH_SHORT).show()
+                val curriencies = databaseManager.getAllCurriencies().map {
+                    it.rates.fromJson<HashMap<String, Double>>(gson).keys
+                }
+                Toast.makeText(context, curriencies.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 
         button2.setOnClickListener {
             GlobalScope.launch(Dispatchers.Main) {
-                val string = networkManager.getLatestCurrencies("RUB").await().toString()
-                Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
+                val jsonObject = networkManager.getLatestCurrencies("RUB").await().asJsonObject
+                val currenciesEntity = CurrenciesEntity().apply {
+                    baseAndDate = jsonObject.get("base").asString + jsonObject.get("date").asString
+                    rates = jsonObject.get("rates").toString()
+                }
+                databaseManager.insertCurrencies(currenciesEntity)
             }
         }
     }
