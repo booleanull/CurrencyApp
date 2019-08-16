@@ -8,6 +8,8 @@ interface IDatabaseManager {
 
     suspend fun getCurrenciesByDate(date: String): List<CurrenciesEntity>
 
+    suspend fun getCurrenciesByBase(base: String): List<CurrenciesEntity>
+
     suspend fun getCurrenciesByBaseAndDate(base:String, date: String): CurrenciesEntity
 
     suspend fun insertCurrencies(currenciesEntity: CurrenciesEntity)

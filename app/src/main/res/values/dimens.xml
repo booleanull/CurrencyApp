@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="large_dimen">16dp</dimen>
+    <dimen name="elevation_dimen">4dp</dimen>
+    <dimen name="radius_dimen">8dp</dimen>
+</resources>
