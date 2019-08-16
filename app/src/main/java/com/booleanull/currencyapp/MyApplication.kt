@@ -1,8 +1,7 @@
 package com.booleanull.currencyapp
 
 import android.app.Application
-import com.booleanull.currencyapp.di.AppComponent
-import com.booleanull.currencyapp.di.DaggerAppComponent
+import com.booleanull.currencyapp.di.*
 
 class MyApplication : Application() {
 
@@ -15,6 +14,9 @@ class MyApplication : Application() {
         super.onCreate()
         appComponent = DaggerAppComponent
             .builder()
+            .appModule(AppModule(this))
+            .databaseModule(DatabaseModule())
+            .networkModule(NetworkModule())
             .build()
     }
 }

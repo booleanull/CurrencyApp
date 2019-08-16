@@ -13,6 +13,7 @@ class DatabaseModule {
     @Singleton
     @Provides
     internal fun provideDatabase(context: Context): CurrenciesDatabase {
-        return Room.databaseBuilder(context, CurrenciesDatabase::class.java, "currencies").build()
+        return Room.databaseBuilder(context, CurrenciesDatabase::class.java, "currencies")
+            .build()
     }
 }

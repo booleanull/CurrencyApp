@@ -3,16 +3,10 @@ package com.booleanull.currencyapp.data.managers
 import com.booleanull.currencyapp.MyApplication
 import com.booleanull.currencyapp.data.database.CurrenciesDatabase
 import com.booleanull.currencyapp.data.models.CurrenciesEntity
-import javax.inject.Inject
 
 class DatabaseManager : IDatabaseManager {
 
-    @Inject
-    lateinit var currenciesDatabase: CurrenciesDatabase
-
-    init {
-        MyApplication.appComponent.inject(this)
-    }
+    private val currenciesDatabase: CurrenciesDatabase = MyApplication.appComponent.currenciesDatabase()
 
     override suspend fun getAllCurriencies(): List<CurrenciesEntity> {
         return currenciesDatabase.provideCurrenciesDao().all()
