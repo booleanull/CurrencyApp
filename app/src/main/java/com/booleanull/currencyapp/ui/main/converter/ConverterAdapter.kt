@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.booleanull.currencyapp.R
 import kotlinx.android.synthetic.main.view_converter.view.*
 
-class ConverterAdapter(private val items: List<String>) : RecyclerView.Adapter<ConverterAdapter.ViewHolder>() {
+class ConverterAdapter(val items: MutableList<String>) : RecyclerView.Adapter<ConverterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context).inflate(

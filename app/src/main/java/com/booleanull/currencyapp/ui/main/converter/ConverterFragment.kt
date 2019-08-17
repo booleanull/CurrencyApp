@@ -77,39 +77,17 @@ class ConverterFragment : Fragment(), BackButtonListener {
         initAnimators()
 
         val converterAdapter = ConverterAdapter(
-            listOf(
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222",
-                "1111",
-                "2222"
-            )
+            mutableListOf()
         )
+
+        checkEmptyList(converterAdapter)
+
+        button_add.setOnClickListener {
+            converterAdapter.items.add("SDJhjakshdkas")
+            converterAdapter.notifyItemInserted(converterAdapter.items.size - 1)
+
+            checkEmptyList(converterAdapter)
+        }
 
         recycler_view.adapter = converterAdapter
         recycler_view.layoutManager
@@ -185,11 +163,6 @@ class ConverterFragment : Fragment(), BackButtonListener {
         val layoutTransition = LayoutTransition()
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         constraint.layoutTransition = layoutTransition
-/*
-        val layoutTransitionInner = LayoutTransition()
-        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        layoutTransitionInner.setAnimateParentHierarchy(false)
-        container_converter.layoutTransition = layoutTransitionInner*/
 
         val buttonTopStart = AnimatorInflater.loadAnimator(
             context,
@@ -214,6 +187,14 @@ class ConverterFragment : Fragment(), BackButtonListener {
         buttonBottomStart.addListener(onEnd = { button_bottom.text = currencyBottom.title })
         buttonBottomAnimator.playSequentially(buttonBottomStart, buttonBottomEnd)
         buttonBottomAnimator.setTarget(button_bottom)
+    }
+
+    private fun checkEmptyList(converterAdapter: ConverterAdapter) {
+        if (converterAdapter.items.isEmpty()) {
+            container_empty.visibility = View.VISIBLE
+        } else {
+            container_empty.visibility = View.GONE
+        }
     }
 
     private fun showCurrenciesDialog(listener: DialogInterface.OnClickListener): AlertDialog {

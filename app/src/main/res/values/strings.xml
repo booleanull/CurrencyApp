@@ -22,4 +22,5 @@
     <string name="select">Выбор валюты</string>
     <string name="enter">Начните ввод</string>
     <string name="update">Обновление данных</string>
+    <string name="empty">История пуста</string>
 </resources>
