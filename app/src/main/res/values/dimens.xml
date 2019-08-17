@@ -3,4 +3,6 @@
     <dimen name="large_dimen">16dp</dimen>
     <dimen name="elevation_dimen">4dp</dimen>
     <dimen name="radius_dimen">8dp</dimen>
+    <dimen name="large_text_dimen">18sp</dimen>
+    <dimen name="standard_dimen">8dp</dimen>
 </resources>

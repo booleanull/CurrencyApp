@@ -40,13 +40,6 @@ class MainFragment : Fragment(), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.setOnMenuItemClickListener {
-            when(it.itemId) {
-                R.id.settings -> cicerone.router.navigateTo(Screens.SettingsScreen())
-            }
-            true
-        }
-
         navigation.setOnNavigationItemSelectedListener { menu ->
             when (menu.itemId) {
                 R.id.navigation_course -> selectNavigationItem(CourseFragment.TAG, CourseFragment())
